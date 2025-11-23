@@ -27,120 +27,57 @@
             background-color: var(--krem);
             color: #333;
             display: flex;
-            flex-direction: column;
             min-height: 100vh;
         }
 
-        /* === Navbar === */
-        nav {
-            background: var(--coklat-tua);
-            color: var(--putih);
+        /* Layout Wrapper */
+        .layout-wrapper {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 48px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
         }
 
-        nav .logo {
-            font-weight: 800;
-            font-size: 24px;
-            letter-spacing: 1px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 32px;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li a {
-            color: var(--putih);
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--krem);
-            border-bottom: 2px solid var(--krem);
-            padding-bottom: 4px;
-        }
-
-        /* === Main Content === */
+        /* Main content */
         main {
             flex: 1;
-            padding: 60px 80px;
+            padding: 40px;
             background: linear-gradient(180deg, var(--krem), var(--putih));
         }
 
-        /* === Footer === */
         footer {
             background: var(--coklat-muda);
             color: var(--putih);
             text-align: center;
-            padding: 16px;
-            font-size: 14px;
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
-        }
-
-        /* === Button === */
-        .btn {
-            background: var(--coklat-tua);
-            color: white;
-            padding: 12px 28px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .btn:hover {
-            background: var(--coklat-muda);
-            transform: translateY(-2px);
-        }
-
-        /* === Responsive === */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            nav .menu-toggle {
-                display: block;
-                font-size: 24px;
-                cursor: pointer;
-            }
+            padding: 14px;
         }
     </style>
 </head>
 
 <body>
-    {{-- Navbar --}}
-    <nav>
-        <div class="logo">SITRANSMANIA</div>
-        <ul>
-            <li><a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">Beranda</a></li>
-            <li><a href="#">Tentang</a></li>
-            <li><a href="#">Layanan</a></li>
-            <li><a href="#">Kontak</a></li>
-        </ul>
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
-    </nav>
+
+<div class="layout-wrapper">
+
+    {{-- Sidebar --}}
+    @if(Auth::check())
+        @if(Auth::user()->role === 'admin')
+            @include('layouts.sidebar.admin')
+        @elseif(Auth::user()->role === 'pemilik')
+            @include('layouts.sidebar.pemilik')
+        @elseif(Auth::user()->role === 'peminjam')
+            @include('layouts.sidebar.peminjam')
+        @endif
+    @endif
 
     {{-- Main Content --}}
     <main>
         @yield('content')
+
+        {{-- Footer --}}
+        <footer>
+            © 2025 SITRANSMANIA | Universitas Negeri Malang
+        </footer>
     </main>
 
-    {{-- Footer --}}
-    <footer>
-        © 2025 SITRANSMANIA | Universitas Negeri Malang
-    </footer>
+</div>
+
 </body>
 </html>

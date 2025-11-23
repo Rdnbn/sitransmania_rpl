@@ -1,15 +1,16 @@
-@extends('layouts.landing')
+@extends('layouts.guest')
 
 @section('title', 'Tentang | SITRANSMANIA')
 
 @section('content')
+
 <section class="py-5">
     <div class="container">
         <h1 class="fw-bold mb-4 text-center">Tentang SITRANSMANIA</h1>
 
         <p>
             <strong>SITRANSMANIA</strong> adalah sistem informasi peminjaman kendaraan milik 
-            SMKN 1 Bantul yang dirancang untuk mempermudah proses peminjaman kendaraan operasional.
+            warga asrama Universitas Negeri Malang yang dirancang untuk mempermudah proses peminjaman kendaraan operasional.
         </p>
 
         <p>
@@ -22,7 +23,7 @@
 
         <h3 class="fw-bold mt-4">Misi</h3>
         <ul>
-            <li>Mempermudah akses peminjaman kendaraan bagi seluruh warga sekolah.</li>
+            <li>Mempermudah akses peminjaman kendaraan bagi seluruh warga asrama.</li>
             <li>Meningkatkan transparansi dalam pendataan kendaraan.</li>
             <li>Menyediakan pelacakan kendaraan secara real-time.</li>
         </ul>

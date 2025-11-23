@@ -1,93 +1,64 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') - SITRANSMANIA</title>
+@extends('layouts.guest')
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('title', 'Beranda')
 
-    <!-- Custom Style -->
-    <style>
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: url('/storage/landing/sitrans-bg.jpg') center/cover no-repeat;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+@push('styles')
+<style>
+    .hero {
+        height: 100vh;
+        background: url('/pubic/images/Asrama.jpg') center/cover no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+    }
+    .hero-title { font-size: 3rem; font-weight: 800; }
+    .hero-subtitle { font-size: 1.2rem; opacity: .9; }
+</style>
+@endpush
 
-        .hero::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-        }
+@section('hero')
+<div class="hero">
+    <div>
+        <h1 class="hero-title">SITRANSMANIA</h1>
+        <p class="hero-subtitle">Sistem Layanan Peminjaman Transportasi Antar Warga Asrama</p>
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-        }
+        @guest
+        <button class="btn btn-primary mt-4" onclick="window.location.href='{{ route('login') }}'">
+            Masuk ke Aplikasi
+        </button>
+        @endguest
+    </div>
+</div>
+@endsection
 
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-        }
+@section('content')
+<div class="container py-5">
+    <h2 class="fw-bold text-center mb-4">Kenapa Memilih SITRANSMANIA?</h2>
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f0f0f0;
-            border-radius: 50%;
-            font-size: 24px;
-        }
-    </style>
-</head>
-
-<body>
-
-    {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('beranda') }}">SITRANSMANIA</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('beranda') }}">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('tentang') }}">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('layanan') }}">Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('kontak') }}">Kontak</a></li>
-                </ul>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-3">
+            <div class="text-center p-4 rounded shadow-sm bg-white">
+                <div class="feature-icon mb-3"><i class="fas fa-motorcycle"></i></div>
+                <h5>Peminjaman Mudah</h5>
+                <p>Ajukan pinjaman kendaraan hanya dengan beberapa klik.</p>
             </div>
         </div>
-    </nav>
-
-    {{-- Hero Section --}}
-    @yield('hero')
-
-    {{-- Content --}}
-    @yield('content')
-
-    {{-- Bootstrap JS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+        <div class="col-md-3">
+            <div class="text-center p-4 rounded shadow-sm bg-white">
+                <div class="feature-icon mb-3"><i class="fas fa-users"></i></div>
+                <h5>Komunitas Aman</h5>
+                <p>Pengguna terverifikasi untuk keamanan bersama.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center p-4 rounded shadow-sm bg-white">
+                <div class="feature-icon mb-3"><i class="fas fa-chart-line"></i></div>
+                <h5>Riwayat Lengkap</h5>
+                <p>Lihat semua aktivitas peminjaman kapan saja.</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

@@ -1,8 +1,9 @@
-@extends('layouts.landing')
+@extends('layouts.guest')
 
 @section('title', 'Kontak | SITRANSMANIA')
 
 @section('content')
+
 <section class="py-5">
     <div class="container">
         <h1 class="fw-bold mb-4 text-center">Hubungi Kami</h1>

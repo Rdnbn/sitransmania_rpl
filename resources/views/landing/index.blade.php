@@ -1,78 +1,69 @@
-@extends('layouts.landing')
+@extends('layouts.guest')
 
 @section('title', 'SITRANSMANIA')
 
-{{-- HERO --}}
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+@endpush
+
+
 @section('hero')
-<div class="hero">
-    <div class="hero-content">
-        <h1 class="hero-title">SITRANSMANIA</h1>
-        <p class="hero-subtitle">
+<div id="hero">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold">SITRANSMANIA</h1>
+        <p class="lead mt-3">
             Sistem Informasi Transportasi & Manajemen Kendaraan Modern
         </p>
 
-        <a href="{{ route('login') }}" class="btn btn-primary px-4 py-2 mt-3">
-            Masuk Sistem
-        </a>
-        <a href="{{ route('register') }}" class="btn btn-outline-light px-4 py-2 mt-3 ms-2">
-            Daftar Akun
-        </a>
+        <div class="mt-4">
+            <a href="{{ route('login') }}" class="btn btn-hero-brown btn-lg px-4">Masuk Aplikasi</a>
+            <a href="{{ route('register') }}" class="btn btn-hero-outline btn-lg px-4 ms-2">Daftar Akun</a>
+        </div>
     </div>
 </div>
 @endsection
 
-{{-- KONTEN --}}
+
 @section('content')
 <div class="container py-5">
 
-    {{-- Features --}}
-    <div class="text-center mb-5">
-        <h2 class="fw-bold">Mengapa Memilih SITRANSMANIA?</h2>
-        <p class="text-muted">Solusi lengkap untuk manajemen transportasi modern.</p>
-    </div>
+    <h2 class="text-center fw-bold mb-4">Mengapa Memilih SITRANSMANIA?</h2>
 
     <div class="row g-4">
 
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3 text-center">
-                <div class="feature-icon mx-auto mb-3">
-                    🚗
-                </div>
-                <h5 class="fw-bold">Manajemen Kendaraan</h5>
+            <div class="card shadow-sm text-center p-4">
+                <div class="fs-1">🚗</div>
+                <h5 class="fw-bold mt-3">Manajemen Kendaraan</h5>
                 <p class="text-muted">Kelola data kendaraan dengan mudah dan cepat.</p>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3 text-center">
-                <div class="feature-icon mx-auto mb-3">
-                    👥
-                </div>
-                <h5 class="fw-bold">Data Pengguna</h5>
+            <div class="card shadow-sm text-center p-4">
+                <div class="fs-1">👥</div>
+                <h5 class="fw-bold mt-3">Data Pengguna</h5>
                 <p class="text-muted">Pantau pengguna aktif pemilik & peminjam.</p>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card border-0 shadow-sm p-3 text-center">
-                <div class="feature-icon mx-auto mb-3">
-                    📊
-                </div>
-                <h5 class="fw-bold">Monitoring Transaksi</h5>
+            <div class="card shadow-sm text-center p-4">
+                <div class="fs-1">📊</div>
+                <h5 class="fw-bold mt-3">Monitoring Transaksi</h5>
                 <p class="text-muted">Cek riwayat peminjaman dan pengembalian.</p>
             </div>
         </div>
 
     </div>
 
-    {{-- Tentang --}}
-    <div class="card border-0 shadow-sm mt-5">
+
+    <div class="card shadow-sm border-0 mt-5">
         <div class="card-body">
             <h4 class="fw-bold">Tentang Sistem</h4>
             <p class="text-muted">
-                SITRANSMANIA adalah platform yang dirancang untuk mempermudah pencatatan 
-                dan pengelolaan kendaraan, peminjaman, serta proses administrasi transportasi 
-                di berbagai lingkungan seperti kampus dan perusahaan.
+                SITRANSMANIA adalah platform yang mempermudah pencatatan dan pengelolaan kendaraan,
+                peminjaman, serta administrasi transportasi di lingkungan kampus maupun perusahaan.
             </p>
         </div>
     </div>

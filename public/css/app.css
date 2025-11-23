@@ -8,17 +8,24 @@
 }
 
 :root {
-    --brown-primary: #6d4c41;
-    --brown-dark: #5a3e35;
-    --brown-text: #3e2723;
+    /* Palet warna SITRANSMANIA */
+    --brown-darkest: #3b241a; /* coklat tua pekat */
+    --brown-dark: #5a3e2f; /* coklat tua */
+    --brown: #8a664d; /* coklat sedang */
+    --brown-light: #c8b5a3; /* coklat muda */
+    --cream: #efe1d4; /* krem */
     --white: #ffffff;
+
+    /* Text colors */
+    --text-dark: #3e2723;
+    --text-light: #fff;
 }
 
-/* Font global */
+/* Global font */
 body {
     font-family: "Poppins", sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: var(--cream);
+    color: var(--text-dark);
     line-height: 1.6;
 }
 
@@ -33,86 +40,101 @@ body {
    NAVBAR
 ================================== */
 .navbar {
-    background-color: var(--brown-primary) !important;
+    background-color: var(--brown-dark) !important;
 }
 
 .navbar .nav-link {
     color: var(--white) !important;
+    font-weight: 500;
 }
 
 .navbar .nav-link:hover {
-    color: #ffe9c6 !important;
+    color: var(--cream) !important;
+}
+
+.navbar .navbar-brand {
+    color: var(--white) !important;
+    font-weight: 700;
+}
+
+/* Glass navbar (untuk landing) */
+.navbar-glass {
+    background: rgba(75, 54, 40, 0.55) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.navbar-glass .nav-link,
+.navbar-glass .navbar-brand {
+    color: #fff !important;
+}
+
+/* ===============================
+   SIDEBAR (Dashboard)
+================================== */
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: var(--brown-darkest);
+    padding: 20px;
+}
+
+.sidebar a {
+    color: var(--cream);
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.sidebar a:hover,
+.sidebar .active > a {
+    background: var(--brown-dark);
+    color: var(--white);
 }
 
 /* ===============================
    BUTTON
 ================================== */
 .btn-brown {
-    background-color: var(--brown-primary);
+    background-color: var(--brown-dark);
     color: var(--white);
     border-radius: 20px;
     padding: 8px 20px;
+    transition: 0.3s;
 }
 
 .btn-brown:hover {
-    background-color: var(--brown-dark);
-}
-
-/* ===============================
-   HERO TEXT
-================================== */
-.hero-title {
-    font-size: 4rem;
-    font-weight: 900;
-    color: var(--brown-text);
-}
-
-.hero-subtitle {
-    font-size: 1rem;
+    background-color: var(--brown);
     color: var(--white);
 }
 
-/* Navbar gaya glass */
-.navbar-glass {
-    background: rgba(65, 40, 25, 0.55) !important; /* coklat transparan */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+/* ===============================
+   HERO SECTION
+================================== */
+.hero {
+    width: 100%;
+    height: 90vh;
 
-/* Warna link navbar */
-.navbar-glass .nav-link {
-    color: #fff !important;
-    font-weight: 500;
-}
-
-.navbar-glass .nav-link:hover {
-    color: #ffe9c6 !important;
-}
-
-/* Warna brand */
-.navbar-glass .navbar-brand {
-    color: #fff !important;
-    font-weight: 700;
-}
-
-/* Warna icon toggler (menu hp) */
-.navbar-dark .navbar-toggler-icon {
-    filter: invert(100%);
-}
-
-.hero-section {
-    background-image: url("/images/Asrama.jpg"); /* ganti dengan fotomu */
+    /* CSS TIDAK BOLEH memakai {{ asset() }}, jadi hapus */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    height: 80vh; /* boleh 100vh kalau mau full screen */
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-
     text-align: center;
-    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--brown-darkest);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--white);
 }
