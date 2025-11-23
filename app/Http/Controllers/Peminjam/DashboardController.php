@@ -12,7 +12,7 @@ class DashboardController extends Controller
         // Statistik peminjaman peminjam
         // $totalPeminjaman = Peminjaman::where('peminjam_id', auth()->id())->count();
 
-        return view('peminjam.dashboard.index', [
+        return view('peminjam.dashboard', [
             // 'totalPeminjaman' => $totalPeminjaman
         ]);
     }
