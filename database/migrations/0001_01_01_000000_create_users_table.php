@@ -12,21 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama'); // ganti name jadi nama biar konsisten sama struktur Indonesia
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->id('id_user');
+            $table->string('nama', 100);
+            $table->string('email', 100)->unique();
+            $table->string('password', 255);
+            $table->string('no_telp', 20)->nullable();
             $table->enum('role', ['admin', 'pemilik', 'peminjam'])->default('peminjam');
-            $table->string('no_telp')->nullable();
-            $table->string('asrama')->nullable();
-            $table->string('kamar')->nullable();
-            $table->string('prodi')->nullable();
-            $table->string('angkatan')->nullable();
-            $table->string('foto')->nullable();
-            $table->string('rekening')->nullable();
-            $table->rememberToken();
-            $table->timestamps();
+            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
+            $table->string('asrama', 100)->nullable();
+            $table->string('kamar', 20)->nullable();
+            $table->string('prodi', 100)->nullable();
+            $table->string('angkatan', 10)->nullable();
+            $table->string('foto_profil', 255)->nullable();
+            $table->enum('status_akun', ['aktif', 'nonaktif'])->default('aktif');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

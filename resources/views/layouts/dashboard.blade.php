@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,14 +57,15 @@
             font-size: 15px;
         }
 
-        .menu a:hover, .menu a.active {
+        .menu a:hover,
+        .menu a.active {
             background: var(--brown-light);
         }
 
         .logout {
             margin-top: auto;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .logout a {
@@ -85,7 +87,7 @@
         .navbar {
             background: var(--white);
             padding: 16px 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -133,13 +135,14 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="brand">SITRANSMANIA</div>
         <nav class="menu">
-            <a href="{{ route('dashboard.public') }}" class="active">🏠 Beranda</a>
+            <a href="{{ route('beranda') }}" class="active">🏠 Beranda</a>
             <a href="#">🚗 Transportasi</a>
             <a href="#">📊 Aktivitas</a>
             <a href="#">💬 Chat</a>
@@ -175,4 +178,5 @@
     </div>
 
 </body>
+
 </html>
