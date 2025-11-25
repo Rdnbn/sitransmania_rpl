@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -57,111 +56,86 @@ use App\Http\Controllers\Peminjam\LainnyaController as PeminjamLainnya;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [LandingController::class, 'index'])->name('landing');
-Route::get('/tentang', [LandingController::class, 'tentang'])->name('tentang');
-Route::get('/layanan', [LandingController::class, 'layanan'])->name('layanan');
-Route::get('/kontak', [LandingController::class, 'kontak'])->name('kontak');
-Route::get('/beranda', [LandingController::class, 'beranda'])->name('beranda');
-/*
-|--------------------------------------------------------------------------
-| AUTH
-|--------------------------------------------------------------------------
-*/
-/// Halaman tamu (belum login)
-Route::middleware('guest')->group(function () {
+Route::middleware('web')->group(function () {
+    Route::get('/', [LandingController::class, 'index'])->name('landing');
+    Route::get('/tentang', [LandingController::class, 'tentang'])->name('tentang');
+    Route::get('/layanan', [LandingController::class, 'layanan'])->name('layanan');
+    Route::get('/kontak', [LandingController::class, 'kontak'])->name('kontak');
+    Route::get('/beranda', [LandingController::class, 'beranda'])->name('beranda');
 
-    // LOGIN
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+    Route::middleware('guest')->group(function () {
 
-    // REGISTER
-    Route::get('/register', [RegisterController::class, 'index'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+        // LOGIN
+        Route::get('/login', [LoginController::class, 'index'])->name('login');
+        Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+
+        // REGISTER
+        Route::get('/register', [RegisterController::class, 'index'])->name('register');
+        Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+    });
+
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    // Halaman yang butuh autentikasi
+    Route::middleware('auth')->group(function () {
+
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+        // Dashboard sudah ada di group masing-masing role di bawah
+    });
+
+    Route::middleware(['auth', 'role:admin'])
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+
+            Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+
+            Route::get('/akun', [AdminAkun::class, 'index'])->name('akun.index');
+            Route::post('/akun/store', [AdminAkun::class, 'store'])->name('akun.store');
+            Route::get('/akun/delete/{id}', [AdminAkun::class, 'destroy'])->name('akun.delete');
+            Route::post('/akun/reset-password/{id}', [AdminAkun::class, 'reset'])->name('akun.reset');
+
+            Route::get('/riwayat', [AdminRiwayat::class, 'index'])->name('riwayat.index');
+
+            Route::get('/pengaturan', [AdminLainnya::class, 'settings'])->name('settings');
+            Route::get('/laporan', [AdminLainnya::class, 'laporan'])->name('laporan');
+        });
+
+    Route::middleware(['auth', 'role:pemilik'])
+        ->prefix('pemilik')
+        ->name('pemilik.')
+        ->group(function () {
+            Route::get('/dashboard', [PemilikDashboard::class, 'index'])->name('dashboard');
+
+            Route::get('/kendaraan', [PemilikKendaraan::class, 'index'])->name('kendaraan.index');
+            Route::post('/kendaraan/store', [PemilikKendaraan::class, 'store'])->name('kendaraan.store');
+            Route::post('/kendaraan/status/{id}', [PemilikKendaraan::class, 'updateStatus'])->name('kendaraan.status');
+
+            Route::get('/aktivitas', [PemilikAktivitas::class, 'index'])->name('aktivitas.index');
+            Route::get('/aktivitas/live-map/{id}', [PemilikLiveMap::class, 'index'])->name('live-map');
+
+            // Route::get('/chatt', [PemilikChatt::class, 'index'])->name('chatt.index'); // Controller tidak ada
+
+            Route::get('/pengaturan', [PemilikLainnya::class, 'settings'])->name('settings');
+        });
+
+    Route::middleware(['auth', 'role:peminjam'])
+        ->prefix('peminjam')
+        ->name('peminjam.')
+        ->group(function () {
+
+            Route::get('/dashboard', [PeminjamDashboard::class, 'index'])->name('dashboard');
+
+            Route::get('/kendaraan', [PeminjamKendaraan::class, 'index'])->name('kendaraan.index');
+            Route::get('/kendaraan/pinjam/{id}', [PeminjamKendaraan::class, 'formPinjam'])->name('kendaraan.pinjam');
+            Route::post('/kendaraan/pinjam/{id}', [PeminjamKendaraan::class, 'submitPinjam'])->name('kendaraan.submit');
+
+            Route::get('/pembayaran', [PeminjamPembayaran::class, 'index'])->name('pembayaran.index');
+            Route::post('/pembayaran/upload', [PeminjamPembayaran::class, 'upload'])->name('pembayaran.upload');
+
+            // Route::get('/chatt', [PeminjamChatt::class, 'index'])->name('chatt.index'); // Controller tidak ada
+
+            Route::get('/pengaturan', [PeminjamLainnya::class, 'settings'])->name('settings');
+        });
+
 });
-
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-// Halaman yang butuh autentikasi
-Route::middleware('auth')->group(function () {
-
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-    // Dashboard sudah ada di group masing-masing role di bawah
-});
-
-/*
-|--------------------------------------------------------------------------
-| ADMIN ROUTES
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['auth', 'role:admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-
-        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
-
-        Route::get('/akun', [AdminAkun::class, 'index'])->name('akun.index');
-        Route::post('/akun/store', [AdminAkun::class, 'store'])->name('akun.store');
-        Route::get('/akun/delete/{id}', [AdminAkun::class, 'destroy'])->name('akun.delete');
-        Route::post('/akun/reset-password/{id}', [AdminAkun::class, 'reset'])->name('akun.reset');
-
-        Route::get('/riwayat', [AdminRiwayat::class, 'index'])->name('riwayat.index');
-
-        Route::get('/pengaturan', [AdminLainnya::class, 'settings'])->name('settings');
-        Route::get('/laporan', [AdminLainnya::class, 'laporan'])->name('laporan');
-    });
-
-/*
-|--------------------------------------------------------------------------
-| PEMILIK ROUTES
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth', 'role:pemilik'])
-    ->prefix('pemilik')
-    ->name('pemilik.')
-    ->group(function () {
-        Route::get('/dashboard', [PemilikDashboard::class, 'index'])->name('dashboard');
-
-        Route::get('/kendaraan', [PemilikKendaraan::class, 'index'])->name('kendaraan.index');
-        Route::post('/kendaraan/store', [PemilikKendaraan::class, 'store'])->name('kendaraan.store');
-        Route::post('/kendaraan/status/{id}', [PemilikKendaraan::class, 'updateStatus'])->name('kendaraan.status');
-
-        Route::get('/aktivitas', [PemilikAktivitas::class, 'index'])->name('aktivitas.index');
-        Route::get('/aktivitas/live-map/{id}', [PemilikLiveMap::class, 'index'])->name('live-map');
-
-        // Route::get('/chatt', [PemilikChatt::class, 'index'])->name('chatt.index'); // Controller tidak ada
-
-        Route::get('/pengaturan', [PemilikLainnya::class, 'settings'])->name('settings');
-    });
-
-/*
-|--------------------------------------------------------------------------
-| PEMINJAM ROUTES
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth', 'role:peminjam'])
-    ->prefix('peminjam')
-    ->name('peminjam.')
-    ->group(function () {
-
-        Route::get('/dashboard', [PeminjamDashboard::class, 'index'])->name('dashboard');
-
-        Route::get('/kendaraan', [PeminjamKendaraan::class, 'index'])->name('kendaraan.index');
-        Route::get('/kendaraan/pinjam/{id}', [PeminjamKendaraan::class, 'formPinjam'])->name('kendaraan.pinjam');
-        Route::post('/kendaraan/pinjam/{id}', [PeminjamKendaraan::class, 'submitPinjam'])->name('kendaraan.submit');
-
-        Route::get('/pembayaran', [PeminjamPembayaran::class, 'index'])->name('pembayaran.index');
-        Route::post('/pembayaran/upload', [PeminjamPembayaran::class, 'upload'])->name('pembayaran.upload');
-
-        // Route::get('/chatt', [PeminjamChatt::class, 'index'])->name('chatt.index'); // Controller tidak ada
-
-        Route::get('/pengaturan', [PeminjamLainnya::class, 'settings'])->name('settings');
-    });
-
-/*
-|--------------------------------------------------------------------------
-| LIVE MAP GLOBAL (jika dipakai)
-|--------------------------------------------------------------------------
-*/
-// Route::get('/live-map/data/{id}', [LiveMapController::class, 'fetchLocation'])->name('live-map.data'); // Controller tidak ada

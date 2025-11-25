@@ -3,6 +3,7 @@
 @section('title', 'Daftar Akun | SITRANSMANIA')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
     body {
         background: linear-gradient(180deg, #f5f0ea 0%, #ffffff 60%, #d7ccc8 100%);

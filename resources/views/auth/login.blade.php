@@ -3,6 +3,7 @@
 @section('title', 'Login | SITRANSMANIA')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @if (session('success'))
     <div style="background: #d7ccc8; color: #3e2723; padding: 10px; border-radius: 6px; margin-bottom: 16px;">
